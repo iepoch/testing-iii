@@ -12,7 +12,7 @@ describe("should Dashboard the gate", () => {
   });
 
 
-
+// Validate that when the gate is closed and locked and open button is disabled
   it("should check to see if gate is closed and locked", () => {
     const { getByText } = render(<Dashboard />
     );
@@ -25,5 +25,12 @@ describe("should Dashboard the gate", () => {
 
   });
 
+  //Validate that the lock button is disabled when gate is open
+  it('should check to see if locked btn disabled when gate is open', () => {
+    const { getByText } = render(<Dashboard />);
+    const locked = getByText(/lock gate/i);
+    expect(locked).toHaveAttribute('disabled');
+
+  })
 
 });
