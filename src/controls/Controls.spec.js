@@ -2,11 +2,10 @@
 // Test away!
 import React from "react";
 import Controls from "./Controls";
-import { render, fireEvent, cleanup, waitForElement } from "react-testing-library";
+import { render, fireEvent, cleanup } from "react-testing-library";
 import "jest-dom/extend-expect";
-// import waitForExpect from "wait-for-expect";
 
-afterEach(cleanup);
+// afterAll(cleanup);
 
 describe("should Controls the gate", () => {
   it("should render the Controls", () => {
@@ -20,14 +19,19 @@ describe("should Controls the gate", () => {
     getByText(/close gate/i);
   });
 
-  it("should display open button when closed is clicked", async () => {
+  it("should show open button when closed is clicked", () => {
+    const { getByText } = render(<Controls closed={true} locked={false} />);
+    const closed = getByText(/close gate/i);
+    fireEvent.click(closed);
+    const opened = getByText(/open gate/i);
+    expect(opened).toHaveTextContent(/open gate/i);
+  });
+
+  it("should show closed button when open is clicked", () => {
     const { getByText } = render(<Controls />);
-    const close = getByText(/close gate/i);
-      fireEvent.click(close);
-    // await waitForElement(() => getByText(/open gate/i))
-    // // const openBtn = getByText(/open gate/i)
-    // // expect(openBtn).toHaveContent(/open gate/i)
-
-
+    const opened = getByText(/open gate/i);
+    fireEvent.click(opened);
+    const closed = getByText(/close gate/i);
+    expect(closed).toHaveTextContent(/close gate/i);
   });
 });

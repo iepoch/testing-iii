@@ -24,7 +24,7 @@ describe('should display the gate', () => {
 
 
 
-    // Validate that you can close and leave unlocked
+    // Validate that you can close and unlocked
     it('should display closed and unlocked', () => {
         const { getByText } = render(<Display closed={true} locked={false} />);
         const closed = getByText(/closed/i);
