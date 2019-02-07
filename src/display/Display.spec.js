@@ -3,15 +3,23 @@ import React from "react";
 import Display from './Display'
 import { render, cleanup } from 'react-testing-library'
 import 'jest-dom/extend-expect'
+import renderer from 'react-test-renderer'
 
 
 afterEach(cleanup)
 
 describe('should display the gate', () => {
 
+    it("matches snapshot", () => {
+        const node = renderer.create(<Display />);
+        const nodeInstance = node.root;
+        expect(node.toJSON()).toMatchSnapshot()
+    })
+
     it('should render the display', () => {
         render(<Display />);
     })
+
 
     //Validate that the display can be unlocked and opened
     it('should display open and unlocked', () => {
